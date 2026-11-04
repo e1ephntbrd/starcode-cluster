@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # Node.js Gateway / Orchestrator
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - PYTHON_WORKER_URL=python-worker:50051
+      - NET_WORKER_URL=dotnet-worker:50052
+      - GO_WORKER_URL=go-worker:50053
+    depends_on:
+      - python-worker
+      - dotnet-worker
+      - go-worker
+    networks:
+      - constellation-net
+
+  # Python Worker (NumPy / Matrix calculations)
+  python-worker:
+    build: ./workers/python-worker
+    expose:
+      - "50051"
+    networks:
+      - constellation-net
+
+  # .NET Core Worker (Rays & Noise)
+  dotnet-worker:
+    build: ./workers/dotnet-worker
+    expose:
+      - "50052"
+    networks:
+      - constellation-net
+
+  # Go Worker (Graph validation)
+  go-worker:
+    build: ./workers/go-worker
+    expose:
+      - "50053"
+    networks:
+      - constellation-net
+
+  # Frontend (Vite + Three.js)
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - gateway
+    networks:
+      - constellation-net
+
+networks:
+  constellation-net:
+    driver: bridge

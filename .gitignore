@@ -1,0 +1,54 @@
+# --- General & System Files ---
+.DS_Store
+Thumbs.db
+.env
+.env.local
+*.log
+.idea/
+.vscode/
+
+# --- Node.js / TypeScript (Gateway & Frontend) ---
+node_modules/
+dist/
+build/
+.vite/
+.npm/
+.pnpm-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Python Worker ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.env/
+.venv/
+.pytest_cache/
+# Generated gRPC proto stubs if compiled locally
+*_pb2.py
+*_pb2_grpc.py
+
+# --- .NET Worker ---
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+publish/
+*.publishState
+
+# --- Go Worker ---
+go-worker
+*.exe
+*.dll
+*.so
+*.dylib
+vendor/
