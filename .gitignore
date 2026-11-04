@@ -46,7 +46,6 @@ publish/
 *.publishState
 
 # --- Go Worker ---
-go-worker
 *.exe
 *.dll
 *.so
